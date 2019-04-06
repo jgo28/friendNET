@@ -5,6 +5,12 @@
 # Description:
 #   
 # ----------------------------------------------------------------------
+#  Killer Feature 1: 
+#      Recommended friends. We would go through all of a user's friends'
+#      friends and count up how many of them are recurring throughout. If 
+#      If the friend that popped up the most is not friends with the user, 
+#      it will be a recommended friend. 
+# ----------------------------------------------------------------------
 
 import sys
 
