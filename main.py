@@ -32,7 +32,6 @@ def read_file(filename):
 def doChoice(userChoice, userDictionary, graph):
     if userChoice == 1:
         checkName = raw_input("Enter the users name > ")
-        print(checkName)
         if checkName in userDictionary:
             print(checkName + " exists")
         else:
