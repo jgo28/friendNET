@@ -18,11 +18,25 @@ def main(filename):
 
 # reads file
 def read_file(filename):
-    print("read file")
-    adj_list = []
-    for i in filename.read().split(): 
-        
-
+    adj_list = []   # adjacency list containing friends of the users based on the users index
+    user_dict = {}    # dictionary containing the users and their corresponding index
+    j = 0
+    first_user = None
+    second_user = None
+    for i in filename.readline().split(): 
+        if j == 0:
+            first_user = i
+            user_dict = {i : j}     # add user to the user dictionary      
+        elif j == 1:
+            second_user = i
+            print(second_user)
+            user_dict = {i : j}     # add user to the user dictionary
+        else:
+            users_friends_dict = {second_user : i}  # add the users friend to a dictionary
+            adj_list.append(users_friends_dict)     # add that dictionary to the adjacency list
+        j += 1
+    print(adj_list)
+    
 # takes in command line arguments to execute program
 if __name__ == '__main__':
     if len(sys.argv) != 2:
