@@ -1,4 +1,4 @@
-# Authors: Joshua Go, Evan Swanson
+# Authors: Joshua Go, Evan Swanson, Mauricio Velazquez
 # Course: CPSC 450
 # Assignment: Final Project
 # Description:
