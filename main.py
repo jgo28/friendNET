@@ -40,8 +40,11 @@ def doChoice(userChoice, userDictionary, graph):
     elif userChoice == 2:
         names = raw_input("What users (seperated by spaces) > ")
         names = names.split()
-        weight = graph[userDictionary[names[0]]][names[1]]
-        print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
+        if names[0] in userDictionary and names[1] in userDictionary:
+            weight = graph[userDictionary[names[0]]][names[1]]
+            print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
+        else:
+            print("Invalid input names")
 
 
 # takes in command line arguments to execute program
