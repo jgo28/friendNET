@@ -21,20 +21,25 @@ def read_file(filename):
     adj_list = []   # adjacency list containing friends of the users based on the users index
     user_dict = {}    # dictionary containing the users and their corresponding index
 
-    j = 0
+    every_three = 0     # resets counter every 3 iterations
+    index = 0   # keeps track of index of the adjacency list
     user = None
     users_friend = None
-    for i in filename.readline().split(): 
-        if j == 0:
+    for i in filename.read().split(): 
+        if every_three == 0:
             user = i
-            user_dict.update({i : j})     # add user to the user dictionary      
-        elif j == 1:
+            if not i in user_dict:
+                user_dict.update({i : index})     # add user to the user dictionary  
+                index += 1
+        elif every_three == 1:
             users_friend = i
-            user_dict.update({i : j})   # add user to the user dictionary
         else:
             users_friends_dict = {users_friend : i}  # add the users friend to a dictionary
             adj_list.append(users_friends_dict)     # add that dictionary to the adjacency list
-        j += 1
+        every_three += 1
+        if every_three == 3:
+            index += 1
+            every_three = 0
     print(adj_list)
     print(user_dict)
     
