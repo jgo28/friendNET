@@ -29,7 +29,7 @@ def main(filename):
         print("3) Quit")
         userChoice = input()
         #just test cases, replace with actual params
-        doChoice(userChoice, {'a': 0, 'b' : 1}, [{'b':10},{'a':5}])
+        doChoice(userChoice, userDictionary, adjacencyList)
 
 # reads file
 def read_file(filename):
