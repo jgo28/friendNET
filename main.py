@@ -38,7 +38,6 @@ def read_file(filename):
             adj_list.append(users_friends_dict)     # add that dictionary to the adjacency list
         every_three += 1
         if every_three == 3:
-            index += 1
             every_three = 0
     print(adj_list)
     print(user_dict)
