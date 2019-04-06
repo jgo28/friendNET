@@ -22,7 +22,7 @@ def main(filename):
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
     userChoice = 0
-    while(userChoice != 3):
+    while(userChoice != "3"):
         print("What do you want to do?")
         print("1) Check if user exists")
         print("2) Check connection between users")
@@ -56,14 +56,14 @@ def read_file(filename):
     return user_dict, adj_list
     
 def doChoice(userChoice, userDictionary, graph):
-    if userChoice == 1:
-        checkName = raw_input("Enter the users name > ")
+    if userChoice == "1":
+        checkName = input("Enter the users name > ")
         if checkName in userDictionary:
             print(checkName + " exists")
         else:
             print(checkName + " does not exist")
-    elif userChoice == 2:
-        names = raw_input("What users (seperated by spaces) > ")
+    elif userChoice == "2":
+        names = input("What users (seperated by spaces) > ")
         names = names.split()
         if names[1] in graph[userDictionary[names[0]]]:
             weight = graph[userDictionary[names[0]]][names[1]]
