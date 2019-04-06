@@ -5,6 +5,12 @@
 # Description:
 #   
 # ----------------------------------------------------------------------
+#  Killer Feature 1: 
+#      Recommended friends. We would go through all of a user's friends'
+#      friends and count up how many of them are recurring throughout. If 
+#      If the friend that popped up the most is not friends with the user, 
+#      it will be a recommended friend. 
+# ----------------------------------------------------------------------
 
 import sys
 
@@ -15,12 +21,20 @@ def main(filename):
         file_stream.close()
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
+    userChoice = 0
+    while(userChoice != 3):
+        print("What do you want to do?")
+        print("1) Check if user exists")
+        print("2) Check connection between users")
+        print("3) Quit")
+        userChoice = input()
+        #just test cases, replace with actual params
+        doChoice(userChoice, userDictionary, adjacencyList)
 
 # reads file
 def read_file(filename):
     adj_list = []   # adjacency list containing friends of the users based on the users index
     user_dict = {}    # dictionary containing the users and their corresponding index
-
     every_three = 0     # resets counter every 3 iterations
     index = 0   # keeps track of index of the adjacency list
     user = None
@@ -42,6 +56,23 @@ def read_file(filename):
     print(adj_list)
     print(user_dict)
     
+def doChoice(userChoice, userDictionary, graph):
+    if userChoice == 1:
+        checkName = raw_input("Enter the users name > ")
+        if checkName in userDictionary:
+            print(checkName + " exists")
+        else:
+            print(checkName + " does not exist")
+    elif userChoice == 2:
+        names = raw_input("What users (seperated by spaces) > ")
+        names = names.split()
+        if names[0] in userDictionary and names[1] in userDictionary:
+            weight = graph[userDictionary[names[0]]][names[1]]
+            print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
+        else:
+            print("Invalid input names")
+
+
 # takes in command line arguments to execute program
 if __name__ == '__main__':
     if len(sys.argv) != 2:
