@@ -17,7 +17,7 @@ import sys
 def main(filename):
     try:
         file_stream = open(filename, 'r')
-        read_file(file_stream) 
+        userDictionary, adjacencyList = read_file(file_stream) 
         file_stream.close()
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
@@ -53,8 +53,7 @@ def read_file(filename):
         every_three += 1
         if every_three == 3:    # reset to 0 every 3 iterations
             every_three = 0
-    print(adj_list)
-    print(user_dict)
+    return user_dict, adj_list
     
 def doChoice(userChoice, userDictionary, graph):
     if userChoice == 1:
@@ -66,11 +65,11 @@ def doChoice(userChoice, userDictionary, graph):
     elif userChoice == 2:
         names = raw_input("What users (seperated by spaces) > ")
         names = names.split()
-        if names[0] in userDictionary and names[1] in userDictionary:
+        if names[1] in graph[userDictionary[names[0]]]:
             weight = graph[userDictionary[names[0]]][names[1]]
             print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
         else:
-            print("Invalid input names")
+            print("No connection between names")
 
 
 # takes in command line arguments to execute program
