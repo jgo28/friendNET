@@ -1,6 +1,7 @@
 # Authors: Joshua Go, Evan Swanson, Mauricio Velazquez
 # Course: CPSC 450
 # Assignment: Final Project
+# Usage: python3 main.py [test file name]
 # Description:
 #   
 # ----------------------------------------------------------------------
