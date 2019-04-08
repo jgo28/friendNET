@@ -6,10 +6,18 @@
 #   
 # ----------------------------------------------------------------------
 #  Killer Feature 1: 
-#      Recommended friends. We would go through all of a user's friends'
+#      Recommended friends.
+#      We would go through all of a user's friends'
 #      friends and count up how many of them are recurring throughout. If 
 #      If the friend that popped up the most is not friends with the user, 
 #      it will be a recommended friend. 
+# ----------------------------------------------------------------------
+#  Killer Feature 2: 
+#      We calculate a "top chart", where we take into consideration 
+#      both the amount of friends and the "quality" of friends. Meaning that this
+#      feature would output the list of all users ranked from top to bottom. We 
+#      Calculate their "score" by averiging out their overall level of friendship
+#      and muiltiply it their number of friends. 
 # ----------------------------------------------------------------------
 
 import sys
