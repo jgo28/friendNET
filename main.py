@@ -8,7 +8,8 @@
 #  Killer Feature 1: 
 #      Recommended friends.
 #      We would go through all of a user's friends'
-#      friends and count up how many of them are recurring throughout. If 
+#      friends and count up how many of them are recurring throughout and 
+#      has a relatively high friendship leve. 
 #      If the friend that popped up the most is not friends with the user, 
 #      it will be a recommended friend. 
 # ----------------------------------------------------------------------
@@ -18,6 +19,9 @@
 #      feature would output the list of all users ranked from top to bottom. We 
 #      Calculate their "score" by averiging out their overall level of friendship
 #      and muiltiply it their number of friends. 
+# ----------------------------------------------------------------------
+#  Best Friend Chain Algorithm
+#       In  order to solve this we will use Dijkstra’s algorithm
 # ----------------------------------------------------------------------
 
 import sys
