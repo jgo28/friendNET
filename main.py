@@ -34,6 +34,9 @@ def main(filename):
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
     userChoice = 0
+    print(userDictionary)
+    print(adjacencyList)
+    Dijkstra(userDictionary, adjacencyList)
     while(userChoice != "3"):
         print("What do you want to do?")
         print("1) Check if user exists")
@@ -82,6 +85,41 @@ def doChoice(userChoice, userDictionary, graph):
             print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
         else:
             print("No connection between names")
+
+
+def minDistance(dist, sptSet):
+    min = float("inf")
+    min_index = 0
+    for v in range(len(dist)):
+        if dist[v] < min and sptSet[v] == False:
+            min = dist[v]
+            min_index = v
+
+    return min_index
+
+def Dijkstra(userDictionary, adjacencyList):
+    names = input("What users (seperated by spaces) > ")
+    names = names.split()
+    numVert = len(adjacencyList)
+    
+    dist = [float("inf")] * numVert
+    dist[userDictionary[names[0]]] = 0
+    sptSet = [False] * numVert
+
+    for cout in range(numVert):
+        u = minDistance(dist, sptSet)
+
+        if list(userDictionary.keys())[list(userDictionary.values()).index(u)] == names[1]:
+            break
+
+        sptSet[u] = True
+
+        for name,val in adjacencyList[u].items():
+            v = userDictionary[name]
+            if sptSet[v] == False and dist[v] > dist[u] + int(val):
+                dist[v] = dist[u] + int(val)
+    for v in range(len(dist)):
+        print(str(v) + '  ' + str(dist[v]))
 
 
 # takes in command line arguments to execute program
