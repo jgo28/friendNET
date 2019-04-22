@@ -61,7 +61,12 @@ def read_file(filename):
             users_friend = i
         else:
             users_friends_dict = {users_friend : i}  # add the users friend to a dictionary
-            adj_list.append(users_friends_dict)     # add that dictionary to the adjacency list
+            user_index = user_dict.get(user)
+            if user_index >= len(adj_list):
+                adj_list.append(users_friends_dict)     # add new dictionary to the adjacency list
+            else:
+                adj_list[user_index][users_friend] = i
+
         every_three += 1
         if every_three == 3:    # reset to 0 every 3 iterations
             every_three = 0
@@ -79,6 +84,7 @@ def doChoice(userChoice, userDictionary, graph):
     elif userChoice == "2":
         names = input("What users (seperated by spaces) > ")
         names = names.split()
+        #print(names)
         if names[1] in graph[userDictionary[names[0]]]:
             weight = graph[userDictionary[names[0]]][names[1]]
             print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
