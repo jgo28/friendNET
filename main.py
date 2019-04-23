@@ -33,13 +33,13 @@ def main(filename):
         file_stream.close()
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
-    Dijkstra(userDictionary, adjacencyList)
     userChoice = 0
-    while(userChoice != "3"):
+    while(userChoice != "4"):
         print("What do you want to do?")
         print("1) Check if user exists")
         print("2) Check connection between users")
-        print("3) Quit")
+        print("3) Friend chain")
+        print("4) Quit")
         userChoice = input()
         #just test cases, replace with actual params
         doChoice(userChoice, userDictionary, adjacencyList)
@@ -71,8 +71,6 @@ def read_file(filename):
         every_three += 1
         if every_three == 3:    # reset to 0 every 3 iterations
             every_three = 0
-    print(adj_list)
-    print(user_dict)
     return user_dict, adj_list
     
 def doChoice(userChoice, userDictionary, graph):
@@ -90,6 +88,8 @@ def doChoice(userChoice, userDictionary, graph):
             print("The connection from " + names[0] + " to " + names[1] + " has weight " + str(weight))
         else:
             print("No connection between names")
+    elif userChoice == "3":
+        Dijkstra(userDictionary, graph)
 
 
 def minDistance(dist, sptSet):
@@ -101,11 +101,19 @@ def minDistance(dist, sptSet):
             min_index = v
     return min_index
 
-def Dijkstra(userDictionary, adjacencyList):
+def Dijkstra(userDictionary, graph):
     names = input("What users (seperated by spaces) > ")
     names = names.split()
-    numVert = len(adjacencyList)
+    numVert = len(graph)
+    adjacencyList = graph.copy()
+    parent = []
+    #queue = []
     
+    #transform each weight to 10 - itself
+    for x in range(len(adjacencyList)):
+        for key, val in adjacencyList[x].items():
+            adjacencyList[x][key] = 10 - int(val)
+
     dist = [float("inf")] * numVert
     dist[userDictionary[names[0]]] = 0
     sptSet = [False] * numVert
@@ -113,13 +121,19 @@ def Dijkstra(userDictionary, adjacencyList):
     for cout in range(numVert):
         u = minDistance(dist, sptSet)
         sptSet[u] = True
+        if list(userDictionary.keys())[list(userDictionary.values()).index(u)] == names[1]:
+            break
 
         for name,val in adjacencyList[u].items():
             v = userDictionary[name]
             if sptSet[v] == False and dist[v] > dist[u] + int(val):
                 dist[v] = dist[u] + int(val)
-    for v in range(len(dist)):
-        print(str(v) + '  ' + str(dist[v]))
+                parent.append(u)
+
+    parent.append(userDictionary[names[1]])
+    parent = list(dict.fromkeys(parent))
+    for v in parent:
+        print(str(list(userDictionary.keys())[list(userDictionary.values()).index(v)]) + ' ')
 
 
 # takes in command line arguments to execute program
