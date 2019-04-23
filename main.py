@@ -106,8 +106,7 @@ def Dijkstra(userDictionary, graph):
     names = names.split()
     numVert = len(graph)
     adjacencyList = graph.copy()
-    parent = []
-    #queue = []
+    parent = [-1] * numVert
     
     #transform each weight to 10 - itself
     for x in range(len(adjacencyList)):
@@ -128,12 +127,17 @@ def Dijkstra(userDictionary, graph):
             v = userDictionary[name]
             if sptSet[v] == False and dist[v] > dist[u] + int(val):
                 dist[v] = dist[u] + int(val)
-                parent.append(u)
+                parent[userDictionary[name]] = u
 
-    parent.append(userDictionary[names[1]])
-    parent = list(dict.fromkeys(parent))
-    for v in parent:
-        print(str(list(userDictionary.keys())[list(userDictionary.values()).index(v)]) + ' ')
+    printPath(parent, userDictionary[names[1]], userDictionary)
+
+def printPath(parent, j, userDictionary):
+    #Base Case : If j is source 
+    if parent[j] == -1 :  
+        print(' -' + list(userDictionary.keys())[list(userDictionary.values()).index(j)])
+        return
+    printPath(parent , parent[j], userDictionary) 
+    print(' -' + list(userDictionary.keys())[list(userDictionary.values()).index(j)])
 
 
 # takes in command line arguments to execute program
