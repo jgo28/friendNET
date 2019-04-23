@@ -33,10 +33,8 @@ def main(filename):
         file_stream.close()
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
-    userChoice = 0
-    print(userDictionary)
-    print(adjacencyList)
     Dijkstra(userDictionary, adjacencyList)
+    userChoice = 0
     while(userChoice != "3"):
         print("What do you want to do?")
         print("1) Check if user exists")
@@ -64,10 +62,17 @@ def read_file(filename):
             users_friend = i
         else:
             users_friends_dict = {users_friend : i}  # add the users friend to a dictionary
-            adj_list.append(users_friends_dict)     # add that dictionary to the adjacency list
+            user_index = user_dict.get(user)
+            if user_index >= len(adj_list):
+                adj_list.append(users_friends_dict)     # add new dictionary to the adjacency list
+            else:
+                adj_list[user_index][users_friend] = i
+
         every_three += 1
         if every_three == 3:    # reset to 0 every 3 iterations
             every_three = 0
+    print(adj_list)
+    print(user_dict)
     return user_dict, adj_list
     
 def doChoice(userChoice, userDictionary, graph):
@@ -94,20 +99,12 @@ def minDistance(dist, sptSet):
         if dist[v] < min and sptSet[v] == False:
             min = dist[v]
             min_index = v
-
     return min_index
 
 def Dijkstra(userDictionary, adjacencyList):
     names = input("What users (seperated by spaces) > ")
     names = names.split()
-    numVert = len(userDictionary)
-    #adjacencyList = graph.copy()
-
-    '''
-    for dictionary in range(len(adjacencyList)):
-        for key, val in adjacencyList[dictionary].items():
-            adjacencyList[dictionary][key] = 10 - int(val)
-    '''
+    numVert = len(adjacencyList)
     
     dist = [float("inf")] * numVert
     dist[userDictionary[names[0]]] = 0
@@ -115,17 +112,12 @@ def Dijkstra(userDictionary, adjacencyList):
 
     for cout in range(numVert):
         u = minDistance(dist, sptSet)
-
-        if list(userDictionary.keys())[list(userDictionary.values()).index(u)] == names[1]:
-            break
-
         sptSet[u] = True
 
         for name,val in adjacencyList[u].items():
             v = userDictionary[name]
             if sptSet[v] == False and dist[v] > dist[u] + int(val):
                 dist[v] = dist[u] + int(val)
-                
     for v in range(len(dist)):
         print(str(v) + '  ' + str(dist[v]))
 
