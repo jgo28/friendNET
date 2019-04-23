@@ -25,6 +25,7 @@
 # ----------------------------------------------------------------------
 
 import sys
+import copy
 
 def main(filename):
     try:
@@ -105,14 +106,17 @@ def Dijkstra(userDictionary, graph):
     names = input("What users (seperated by spaces) > ")
     names = names.split()
     numVert = len(graph)
-    adjacencyList = graph.copy()
     parent = [-1] * numVert
+    #make a copy of the graph to transform
+    adjacencyList = copy.deepcopy(graph)
+
     
     #transform each weight to 10 - itself
     for x in range(len(adjacencyList)):
         for key, val in adjacencyList[x].items():
             adjacencyList[x][key] = 10 - int(val)
 
+    #initialize distances list
     dist = [float("inf")] * numVert
     dist[userDictionary[names[0]]] = 0
     sptSet = [False] * numVert
@@ -120,6 +124,7 @@ def Dijkstra(userDictionary, graph):
     for cout in range(numVert):
         u = minDistance(dist, sptSet)
         sptSet[u] = True
+        #break if we made it to our destination
         if list(userDictionary.keys())[list(userDictionary.values()).index(u)] == names[1]:
             break
 
