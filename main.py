@@ -72,8 +72,15 @@ def read_file(filename):
         every_three += 1
         if every_three == 3:    # reset to 0 every 3 iterations
             every_three = 0
-    print(user_dict)
-    print(adj_list)
+    
+    # loop through adj_list and add users who have no friends to user_dict
+    for i, entry in enumerate(adj_list):
+        for adj_key in [*adj_list[i]]:
+            if adj_key not in user_dict:
+                user_dict.update({adj_key: -1})
+
+    # print(user_dict)
+    # print(adj_list)
     return user_dict, adj_list
     
 def doChoice(userChoice, userDictionary, graph):
