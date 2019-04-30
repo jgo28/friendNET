@@ -35,12 +35,13 @@ def main(filename):
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
     userChoice = 0
-    while(userChoice != "4"):
+    while(userChoice != "5"):
         print("What do you want to do?")
         print("1) Check if user exists")
         print("2) Check connection between users")
         print("3) Friend chain")
-        print("4) Quit")
+        print("4) Top Chart")
+        print("5) Quit")
         userChoice = input()
         #just test cases, replace with actual params
         doChoice(userChoice, userDictionary, adjacencyList)
@@ -91,7 +92,33 @@ def doChoice(userChoice, userDictionary, graph):
             print("No connection between names")
     elif userChoice == "3":
         Dijkstra(userDictionary, graph)
+    elif userChoice == "4":
+        topChart(userDictionary, graph)
 
+def topChart(Dict, graph):
+    totalVals = {}
+    index = 0
+    for edges in graph:
+        total = 0
+        for vals in edges:
+            total = total + (int(edges.get(vals)))
+        totalVals.update({index:total})
+        index = index + 1
+    orderedIndex = sorted(totalVals, key = lambda x : totalVals[x], reverse = True)
+
+    print("\n\n...........Top Chart...........")
+    index = 1
+    for x in orderedIndex:
+        name = (getKey(x, Dict))
+        print (str(index) + ") " + f"{name:<15}{totalVals[x]:>12}")
+        index = index + 1
+
+    print("\n\n")
+
+def getKey(val, Dict): 
+    for key, value in Dict.items(): 
+         if val == value: 
+             return key 
 
 def minDistance(dist, sptSet):
     min = float("inf")
