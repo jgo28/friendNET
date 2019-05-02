@@ -107,20 +107,28 @@ def doChoice(userChoice, userDictionary, graph):
 
 def topChart(Dict, graph):
     totalVals = {}
-    index = 0
-    for edges in graph:
+    for users in Dict:
+        adjListIndex = Dict.get(users)
+        index = 0
         total = 0
-        for vals in edges:
-            total = total + (int(edges.get(vals)))
-        totalVals.update({index:total})
+        for edges in graph:
+            for vals in edges:
+                if users == vals:
+                    total = total + (int(edges.get(vals)))
+        # print(users)
+        # print(total)
+        totalVals.update({users:total})
+
         index = index + 1
-    orderedIndex = sorted(totalVals, key = lambda x : totalVals[x], reverse = True)
+    orderedIndex = sorted(totalVals.items(), key=lambda kv: kv[1], reverse = True)
+    print(orderedIndex)
 
     print("\n\n...........Top Chart...........")
     index = 1
     for x in orderedIndex:
+        print(index, ") ", x)
         name = (getKey(x, Dict))
-        print (str(index) + ") " + f"{name:<15}{totalVals[x]:>12}")
+        #print (str(index) + ") " + f"{name:<15}{totalVals[x]:>12}")
         index = index + 1
 
     print("\n\n")
