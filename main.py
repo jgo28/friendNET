@@ -194,14 +194,24 @@ def recommendFriend(userDictionary, adjacencyList):
             else:
                 friendCount[person] = int(adjacencyList[userDictionary[friend]][person])
     
+   
     #remove the person themselves
     if name in friendCount:
         del friendCount[name]
+    print(friendCount)
+    delPeople = max(friendCount, key=friendCount.get) in adjacencyList[userDictionary[name]]
     #remove people who are already friends with the person
-    while max(friendCount, key=friendCount.get) in adjacencyList[userDictionary[name]]:
+    while delPeople:
         del friendCount[max(friendCount, key=friendCount.get)]
+        if len(friendCount) == 0:
+            print("No friends to recommend")
+            delPeople = False
+        else:
+            delPeople = max(friendCount, key=friendCount.get) in adjacencyList[userDictionary[name]]
+
     #output the top candidate
-    print(max(friendCount, key=friendCount.get))
+    if len(friendCount) != 0:
+        print(max(friendCount, key=friendCount.get))
 
 
 # takes in command line arguments to execute program
