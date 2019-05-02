@@ -193,11 +193,13 @@ def recommendFriend(userDictionary, adjacencyList):
                 friendCount[person] += int(adjacencyList[userDictionary[friend]][person]) #the weight of the friendship
             else:
                 friendCount[person] = int(adjacencyList[userDictionary[friend]][person])
-                
-    print(friendCount)
+    
+    #remove the person themselves
     del friendCount[name]
+    #remove people who are already friends with the person
     while max(friendCount, key=friendCount.get) in adjacencyList[userDictionary[name]]:
         del friendCount[max(friendCount, key=friendCount.get)]
+    #output the top candidate
     print(max(friendCount, key=friendCount.get))
 
 
