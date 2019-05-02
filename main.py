@@ -126,9 +126,9 @@ def topChart(Dict, graph):
     print("\n\n...........Top Chart...........")
     index = 1
     for x in orderedIndex:
-        print(index, ") ", x)
-        name = (getKey(x, Dict))
-        #print (str(index) + ") " + f"{name:<15}{totalVals[x]:>12}")
+        name = x[0]
+        number = x[1]
+        print (str(index) + ") " + f"{name:<15}{number:>12}")
         index = index + 1
 
     print("\n\n")
