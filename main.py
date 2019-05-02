@@ -195,7 +195,8 @@ def recommendFriend(userDictionary, adjacencyList):
                 friendCount[person] = int(adjacencyList[userDictionary[friend]][person])
     
     #remove the person themselves
-    del friendCount[name]
+    if name in friendCount:
+        del friendCount[name]
     #remove people who are already friends with the person
     while max(friendCount, key=friendCount.get) in adjacencyList[userDictionary[name]]:
         del friendCount[max(friendCount, key=friendCount.get)]
