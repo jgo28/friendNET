@@ -108,7 +108,6 @@ def doChoice(userChoice, userDictionary, graph):
 def topChart(Dict, graph):
     totalVals = {}
     for users in Dict:
-        adjListIndex = Dict.get(users)
         index = 0
         total = 0
         for edges in graph:
