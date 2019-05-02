@@ -184,12 +184,15 @@ def recommendFriend(userDictionary, adjacencyList):
         #go through this person's friends and add to count dictionary
         for person in adjacencyList[userDictionary[friend]]:
             if person in friendCount:
-                friendCount[person] += adjacencyList[userDictionary[friend]][person] #the weight of the friendship
+                friendCount[person] += int(adjacencyList[userDictionary[friend]][person]) #the weight of the friendship
             else:
-                friendCount[person] = adjacencyList[userDictionary[friend]][person]
+                friendCount[person] = int(adjacencyList[userDictionary[friend]][person])
                 
     print(friendCount)
-    print(max(friendCount.items(), key=operator.itemgetter(1))[0])
+    del friendCount[name]
+    while max(friendCount, key=friendCount.get) in adjacencyList[userDictionary[name]]:
+        del friendCount[max(friendCount, key=friendCount.get)]
+    print(max(friendCount, key=friendCount.get))
 
 
 # takes in command line arguments to execute program
