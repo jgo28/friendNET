@@ -35,12 +35,13 @@ def main(filename):
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
     userChoice = 0
-    while(userChoice != "4"):
+    while(userChoice != "5"):
         print("What do you want to do?")
         print("1) Check if user exists")
         print("2) Check connection between users")
         print("3) Friend chain")
-        print("4) Quit")
+        print("4) Recommend friend")
+        print("5) Quit")
         userChoice = input()
         #just test cases, replace with actual params
         doChoice(userChoice, userDictionary, adjacencyList)
@@ -143,6 +144,20 @@ def printPath(parent, j, userDictionary):
         return
     printPath(parent , parent[j], userDictionary) 
     print(' -' + list(userDictionary.keys())[list(userDictionary.values()).index(j)])
+
+
+def recommendFriend(userDictionary, adjacencyList):
+    name = input("Enter the user to recommend a friend to: ")
+    friendCount = {}
+    #go through each of the user's friends
+    for friend, value in adjacencyList[userDictionary[name]].items():
+        #go through this person's friends and add to count dictionary
+        for person in adjacencyList[userDictionary[friend]]:
+            if person in friendCount:
+                friendCount[person] += 1 #change to be the weight of the friendship?
+            else:
+                friendCount[person] = 1
+    print(friendCount)
 
 
 # takes in command line arguments to execute program
