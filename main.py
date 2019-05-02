@@ -26,6 +26,7 @@
 
 import sys
 import copy
+import operator
 
 def main(filename):
     try:
@@ -35,16 +36,14 @@ def main(filename):
     except FileNotFoundError:
         sys.exit('invalid filename %s' % filename)
     userChoice = 0
-    while(userChoice != "5"):
+    while(userChoice != "6"):
         print("What do you want to do?")
         print("1) Check if user exists")
         print("2) Check connection between users")
         print("3) Friend chain")
-<<<<<<< HEAD
-=======
         print("4) Top Chart")
->>>>>>> da04d4a8d5da1989bf41f3394954771c1747e30a
-        print("5) Quit")
+        print("5) Recommend friend")
+        print("6) Quit")
         userChoice = input()
         #just test cases, replace with actual params
         doChoice(userChoice, userDictionary, adjacencyList)
@@ -97,6 +96,8 @@ def doChoice(userChoice, userDictionary, graph):
         Dijkstra(userDictionary, graph)
     elif userChoice == "4":
         topChart(userDictionary, graph)
+    elif userChoice == "5":
+        recommendFriend(userDictionary, graph)
 
 def topChart(Dict, graph):
     totalVals = {}
@@ -183,10 +184,12 @@ def recommendFriend(userDictionary, adjacencyList):
         #go through this person's friends and add to count dictionary
         for person in adjacencyList[userDictionary[friend]]:
             if person in friendCount:
-                friendCount[person] += 1 #change to be the weight of the friendship?
+                friendCount[person] += adjacencyList[userDictionary[friend]][person] #the weight of the friendship
             else:
-                friendCount[person] = 1
+                friendCount[person] = adjacencyList[userDictionary[friend]][person]
+                
     print(friendCount)
+    print(max(friendCount.items(), key=operator.itemgetter(1))[0])
 
 
 # takes in command line arguments to execute program
